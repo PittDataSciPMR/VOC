@@ -86,7 +86,7 @@ colnames(data_labels)<-colnames(dataf)
 dataf<-data_labels
 dataf<-dataf[order(dataf$fwat_id),]
 
-#dataf<-dataf[c(1:450),]
+dataf<-dataf[c(1:450),]
 #write_csv(dataf, "voc_sorted.csv")
 #dataf_consent<-dataf%>%
 #  filter(consent_y_n=="Yes")
