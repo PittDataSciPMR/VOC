@@ -12,35 +12,23 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+\*Aim 3: Data synthesis, extrapolation, analysis and modeling:
 
-*Aim 3: Data synthesis, extrapolation, analysis and modeling:
+We will synthesize the data obtained to understand the current and future needs of potential stakeholders of accessible automated transportation and services.\
+This will involve presenting summary survey findings, extrapolating findings to the greater population of potential automated vehicle users, combining our data with publicly available datasets to understand factors that influence travel, displaying clusters of users based on their characteristics and needs, and ideation and development of solid models that illustrate key features and parameters for implementing automated vehicles and mobility services. \*
 
-We will synthesize the data obtained to understand the current and future needs of potential stakeholders of accessible automated transportation and services.  
-This will involve presenting summary survey findings, extrapolating findings to the greater population of potential automated vehicle users, combining our data with publicly available datasets to understand factors that influence travel, displaying clusters of users based on their characteristics and needs, and ideation and development of solid models that illustrate key features and parameters for implementing automated vehicles and mobility services.  *
+Questions:\
+What are the current transportation practices of individuals with disabilities?\
+- What are the primary modes of transportation (i.e. fixed route public bus, shared, personal vehicle-passenger, personal vehicle-driver, Rideshare app (Uber or Lyft), automated vehicles, etc.)?\
+- What are the usage rates for each mode of transportation?
 
+What are the current perceptions (e.g. barriers/facilitators) of individuals with disabilities regarding accessibility of each mode of transportation?\
+How often to people experience barriers with getting to where they need to go in the community for these modes of transportation? If the traveler with a disability is a parent, child, sibling, or spouse, how does that role affect accessible travel? If the travel companion of the person with a disability is a parent, child, sibling, spouses or relative how does that role affect accessible travel? How much do barriers with current modes of transportation and transportation related services (e.g. access to adaptive driving training programs, vehicle modifications, paratransit, ride share) affect access to accessible transportation?
 
-Questions:  
-What are the current transportation practices of individuals with disabilities?  
-  - What are the primary modes of transportation (i.e. fixed route public bus, shared, personal vehicle-passenger, personal vehicle-driver, Rideshare app (Uber or Lyft), automated vehicles, etc.)?  
-  - What are the usage rates for each mode of transportation?  
-
-What are the current perceptions (e.g. barriers/facilitators) of individuals with disabilities regarding accessibility of each mode of transportation?  
-  How often to people experience barriers with getting to where they need to go in the community for these modes of transportation?
-  If the traveler with a disability is a parent, child, sibling, or spouse, how does that role affect accessible travel? If the travel companion of the person with a disability is a parent, child, sibling, spouses or relative how does that role affect accessible travel?
-  How much do barriers with current modes of transportation and transportation related services (e.g. access to adaptive driving training programs, vehicle modifications, paratransit, ride share) affect access to accessible transportation?
-
-
-• How much do barriers with transportation and transportation related services (e.g. access to adaptive driving training programs, vehicle modifications, paratransit, ride share) impact community participation?
-o How frequently do barriers with transportation and related services impact community participation for essential (e.g. medical, work, school, grocery etc.) and less essential (e.g. social and recreational events, etc.) activities and locations
-ASPIRE Center
-Page | 11
-o What are the primary reasons for these problems (e.g. too costly, scheduling inconveniences, unreliable, unsafe, requires specialized equipment/adaptations, unable to accommodate additional travelers (spouse, child, service animal, attendant)
-• What are the anticipated barriers/facilitators to using automated vehicles for transportation?
-o What vehicle features or services would be needed to make automated vehicles accessible?
-o What potential impact (influence) could accessible automated vehicles have on community participation?
-
+• How much do barriers with transportation and transportation related services (e.g. access to adaptive driving training programs, vehicle modifications, paratransit, ride share) impact community participation? o How frequently do barriers with transportation and related services impact community participation for essential (e.g. medical, work, school, grocery etc.) and less essential (e.g. social and recreational events, etc.) activities and locations ASPIRE Center Page \| 11 o What are the primary reasons for these problems (e.g. too costly, scheduling inconveniences, unreliable, unsafe, requires specialized equipment/adaptations, unable to accommodate additional travelers (spouse, child, service animal, attendant) • What are the anticipated barriers/facilitators to using automated vehicles for transportation? o What vehicle features or services would be needed to make automated vehicles accessible? o What potential impact (influence) could accessible automated vehicles have on community participation?
 
 Function to estimate fisher exact test and load packages
+
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 rm(list = ls())
 pack<-function(x){
@@ -76,6 +64,7 @@ pack("DT")
 ```
 
 Load files and create data/labels dictionary
+
 ```{r}
 dataf <- read_excel("Clean_VoC_April_DATA.xlsx")
 data_labels <- read_excel("Cleaned_VoC_April_DATA_LABELS.xlsx")
@@ -100,19 +89,20 @@ data.dict<-data.frame(labels=colnames(dataf),surveyq=labs)
 
 ```
 
-
 # Data dictionary
+
 ```{r}
 datatable(data.dict)
 ```
 
 Count conditions
+
 ```{r}
 #reported conditions
 ```
 
-
 Classify states into regions
+
 ```{r}
 #
 Northeast<-c("Connecticut",
@@ -215,6 +205,7 @@ for (i in 1:nrow(dataf)){
 ```
 
 Explore raw distribution of demographic characteristics
+
 ```{r}
 
 table1(~ ethnicity+race+gender+age+marit_stat+education+time_living_disability+regions+divisions+
@@ -226,6 +217,7 @@ table1(~ ethnicity+race+gender+age+marit_stat+education+time_living_disability+r
 ... Collapse
 
 Race and ethnicity into 1
+
 ```{r}
 
 #Race and ethnicity into 1
@@ -233,6 +225,7 @@ Race and ethnicity into 1
 ```
 
 Gender into 3
+
 ```{r}
 
 #Gender into male, female, others
@@ -240,6 +233,7 @@ Gender into 3
 ```
 
 Education into some high-school, high-school, post-high-school, advanced deg
+
 ```{r}
 
 #Education into Education into some high-school, high-school, post-high-school, advanced deg
@@ -247,8 +241,8 @@ Education into some high-school, high-school, post-high-school, advanced deg
 
 ```
 
-
 # Demographic characteristics
+
 ```{r}
 
 #state+
@@ -259,8 +253,8 @@ table1(~ ethnicity+race+gender+age+marit_stat+education+time_living_disability+r
 
 ```
 
-
 Write function to summarize multiple choice questions
+
 ```{r}
 
 domulti_sum<-function(df){
@@ -279,11 +273,11 @@ for (i in 1:ncol(df)){
   }
 
 ```
+
 # Responses' Summary
 
-`
+\` \## What are the current transportation practices of individuals with disabilities? \### Transport modes
 
-## Transport modes
 ```{r}
 #transport modes
 transport_modes<-domulti_sum(dataf[,14:21])
@@ -318,7 +312,8 @@ transport_modes%>%
 
 ```
 
-## Vehicles you would be willing to use:
+### Vehicles you would be willing to use:
+
 ```{r}
 #av systems
 av_systems<-domulti_sum(dataf[,22:27])
@@ -350,7 +345,8 @@ av_systems%>%
 
 ```
 
-## Technologies you would be able to use to arrange a ride in an AV or ATS 
+## Technologies you would be able to use to arrange a ride in an AV or ATS
+
 ```{r}
 #arrg_ride_tech
 arrg_ride_tech<-domulti_sum(dataf[,29:35])
@@ -358,7 +354,8 @@ datatable(arrg_ride_tech)
 
 ```
 
-## Methods you would be willing to use to arrange a ride in an AV or ATS 
+## Methods you would be willing to use to arrange a ride in an AV or ATS
+
 ```{r}
 #meth_arrg_ride___1
 meth_arrg_ride<-domulti_sum(dataf[,37:43])
@@ -366,6 +363,7 @@ datatable(meth_arrg_ride)
 ```
 
 ## Activities you would use AV or ATS to access
+
 ```{r}
 #activities_access___1
 activities_access<-domulti_sum(dataf[,45:51])
@@ -373,30 +371,35 @@ datatable(activities_access)
 ```
 
 ## Services you would use AV and ATS for:
+
 ```{r}
 services_use<-domulti_sum(dataf[,53:58])
 datatable(services_use)
 ```
 
 ## If AV and ATS were available for fixed routes (fixed schedule) similar to public bus schedules, options you would use:
+
 ```{r}
 fixed_rte_opt<-domulti_sum(dataf[,61:65])
 datatable(fixed_rte_opt)
 ```
 
-## If AV and ATS were available for custom routes (on-demand/not on a fixed schedule, customized pick-up and drop-off points), options you would use: 
+## If AV and ATS were available for custom routes (on-demand/not on a fixed schedule, customized pick-up and drop-off points), options you would use:
+
 ```{r}
 custom_rtes<-domulti_sum(dataf[,67:71])
 datatable(custom_rtes)
 ```
 
 ## Accessibility features of an AV and/or ATS you would require
+
 ```{r}
 access_features<-domulti_sum(dataf[,73:81])
 datatable(access_features)
 ```
 
 ## What other forms of transportation would you like to be able to access using AV and ATS?
+
 ```{r}
 other_forms_transpo<-domulti_sum(dataf[,85:92])
 datatable(other_forms_transpo)
@@ -404,18 +407,21 @@ datatable(other_forms_transpo)
 ```
 
 ## Which of the following AV services can you see yourself using?
+
 ```{r}
 av_services_using<-domulti_sum(dataf[,(96:102)])
 datatable(av_services_using)
 ```
 
 ## Automated or automated driver assist features would you be interested in having in vehicle:
+
 ```{r}
 pers_vehicle_asst_feat<-domulti_sum(dataf[,104:116])
 datatable(pers_vehicle_asst_feat)
 ```
 
 ## Where would a personally owned AV be most valuable to you:
+
 ```{r}
 pers_av_value<-domulti_sum(dataf[,118:123])
 datatable(pers_av_value)
@@ -428,19 +434,18 @@ datatable(pers_av_value)
 
 ```
 
-
 # Problems
-1. Use NLP to assess the open ended questions
-2. Explore participant entered responses
-3. Evaluate responses in "Others"
 
-# Analysis plan  
+1.  Use NLP to assess the open ended questions
+2.  Explore participant entered responses
+3.  Evaluate responses in "Others"
 
-1. Chi-sq/Fischer exact for demographic characteristics
-2. Cochran Q test for multiple response questions.  
-3. Cluster to identify characteristics associated with certain responses 
-4. Multinomial logistics regression to test the effects of the identified characteristics
+# Analysis plan
 
+1.  Chi-sq/Fischer exact for demographic characteristics
+2.  Cochran Q test for multiple response questions.\
+3.  Cluster to identify characteristics associated with certain responses
+4.  Multinomial logistics regression to test the effects of the identified characteristics
 
 ```{r}
 #transport modes cochran Q test
@@ -455,4 +460,3 @@ for (i in 1:nrow(dataf_tx)){
 
 
 ```
-
