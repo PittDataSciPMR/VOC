@@ -4,11 +4,11 @@ title: Automated vehicle Services for People with disabilities – Involved Resp
 author: "Sanmi"
 date: "5/9/2022"
 output:
+  pdf_document:
+    toc: yes
   html_document:
     toc: yes
     fig_width: 10
-  pdf_document:
-    toc: yes
 ---
 <a name="top"></a>
 ```{r setup, include=FALSE}
@@ -16,9 +16,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-
-
-Need to import the RDS files instead
 
 **Aim 3: Data synthesis, extrapolation, analysis and modeling:**  
 
@@ -334,23 +331,14 @@ Education into some high-school, high-school, post-high-school, advanced deg
 ```
 
 
-# Demographic characteristics  
+# Demographic characteristics
 ```{r}
 
 #state+
 #+occupation  
 table1(~ ethnicity+race+gender+age+marit_stat+education+time_living_disability+regions+divisions+
          connect_transpo+comfortable_av+price_range+hous_sit+
-         employment+income+veteran | Diagnosis,data = dataf,rowlabelhead = "Characteristics by disability type")
-
-```
-
-
-```{r}
-
-table1(~ ethnicity+race+gender+age+marit_stat+education+time_living_disability+regions+divisions+
-         connect_transpo+comfortable_av+price_range+hous_sit+
-         employment+income+veteran | disab_type_2,data = dataf,rowlabelhead = "Characteristics by disability type")
+         employment+income+veteran | disab_type,data = dataf,rowlabelhead = "Characteristics by disability type")
 
 ```
 
