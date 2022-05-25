@@ -345,6 +345,12 @@ table1(~ ethnicity+race+gender+age+marit_stat+education+time_living_disability+r
 
 ```
 
+```{r}
+
+
+
+```
+
 
 Write function to summarize multiple choice questions
 ```{r}
@@ -533,7 +539,7 @@ purposes." - you can only select one choice of
  - Partner/Caregiver of person(s) with a disability  
  - Older Adult (65+)  
  
-If a participant has all 3 roles, they will have to repeat the survey 3ce.  
+If a participant has 2/3 roles, they will have to repeat the survey 2ce/3ce.  
 This potentially introduces bias as the responses they provide at each of these instances might be different.  
 
 They may give a question more or less thought when re-answering them.  
@@ -558,7 +564,7 @@ Suggested solution: Ability to select more than one role.
 
 
 
-# Next Steps  
+# Next Steps in consideration  
 
 1. Chi-sq/Fischer exact for demographic characteristics
 2. Cochran Q test for multiple response questions. 
