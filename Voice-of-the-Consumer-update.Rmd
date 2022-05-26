@@ -445,6 +445,115 @@ av_systems%>%
 
 ```
 
+Modify data into long format
+```{r}
+
+
+dataf$id<-c(1:nrow(dataf))
+library(tidyr)
+
+#Gather the responses from the 10 questions and bind cols
+#1
+#long_dataf<-dataf%>%
+#  gather(AVsystems,
+#         AVsystemsCheck,
+#         av_systems___1:av_systems___6,
+#         factor_key = T)
+
+#2
+q2<-dataf%>%
+  gather(TransportModes,
+         TransportModesCheck,
+         transpo_modes___1:transpo_modes___7,
+         factor_key = T)
+
+#3
+q3<-dataf%>%
+  gather(AVsystems,
+         AVsystemsCheck,
+         av_systems___1:av_systems___6,
+         factor_key = T)
+
+#q4
+q4<-dataf%>%
+  gather(TechArrangeride,
+         ArrangerideCheck,
+         arrg_ride_tech___1:arrg_ride_tech___8,
+         factor_key = T)
+
+#q5
+q5<-dataf%>%
+  gather(MethodArrangeride,
+         MethodArrangerideCheck,
+         meth_arrg_ride___1:meth_arrg_ride___7,
+         factor_key = T)
+
+#q6
+q6<-dataf%>%
+  gather(MethodArrangeride,
+         MethodArrangerideCheck,
+         meth_arrg_ride___1:meth_arrg_ride___7,
+         factor_key = T)
+
+#q7
+q7<-dataf%>%
+  gather(Activities_access,
+         Activities_accessCheck,
+         activities_access___1:activities_access___7,
+         factor_key = T)
+
+#q8
+q8<-dataf%>%
+  gather(Services_use,
+         Services_useCheck,
+         services_use___1:services_use___6,
+         factor_key = T)
+
+#q9
+q9<-dataf%>%
+  gather(fixed_routes,
+         fixed_routesCheck,
+         fixed_rte_opt___1:fixed_rte_opt___5,
+         factor_key = T)
+
+#q10
+q10<-dataf%>%
+  gather(Custom_routes,
+         Custom_routesCheck,
+         custom_rtes___1:custom_rtes___5,
+         factor_key = T)
+
+#q11
+q11<-dataf%>%
+  gather(Custom_routes,
+         Custom_routesCheck,
+         custom_rtes___1:custom_rtes___5,
+         factor_key = T)
+
+
+dataf%>%
+  group_by(fwat_id,)%>%
+  
+  #mutate(x=rownames(av_systems),
+  #       percent=paste(round(percent,1),"%",sep = ""))%>%
+  ggplot(aes(x=reorder(x,-n), y=n,label=percent))+
+  geom_bar(stat="identity", color="black")+
+  geom_text(nudge_y = -10)+
+  xlab("Autonomous Vehicles (AV) and Autonomous Transportation Systems (ATS)") + 
+  ylab("Number of Participants") +  
+  ggtitle(str_wrap("If Autonomous Vehicles (AV) and Autonomous Transportation Systems (ATS) were available, please indicate the following types of vehicles you would be willing to use",70))+
+  scale_fill_manual(values = "#E63F00")+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 18))+
+  theme(
+    plot.title = element_text(face="bold.italic"),
+    axis.title.x = element_text(face="bold"),
+    axis.title.y = element_text(face="bold"))
+  
+
+
+
+```
+
 #### Technologies you would be able to use to arrange a ride in an AV or ATS 
 ```{r}
 #arrg_ride_tech
