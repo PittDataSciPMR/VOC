@@ -275,27 +275,34 @@ dizz<-dataf[,c(1,4,5:10,201,202,203,11)]
 
 dizz_na<-dizz%>%
   filter(Diagnosis=="No checked condition")
-  
+ #people with no diagnosis checked
+
+#Number of people who didn't select any disability type
+nrow(dizz_na) #there are 145 people with no diagnosis checked
 
 dizz_notna<-dizz%>%
   filter(Diagnosis!="No checked condition")
 
-
-#categories of those who didnt select a condition
+#Distribution of those who didnt select a DISABILITY TYPER
 dizz_na%>%
   group_by(dpct)%>%
   summarize(n=n())%>%
   kable()
 
 
+```
+
+```{r}
 dataf<-dataf%>%
   filter(Diagnosis!="No checked condition")
+
+
+write.csv(dizz_na,"Subject who Checked no condition.csv")
 ```
 
 
 
 ```{r}
-
 #write.csv(dizz, "dizz.csv")
 #read.csv(dizz, "dizz.csv")
 ```
@@ -305,34 +312,18 @@ Explore raw distribution of demographic characteristics
 
 table1(~ ethnicity+race+gender+age+marit_stat+education+time_living_disability+regions+divisions+
          connect_transpo+comfortable_av+price_range+hous_sit+
-         employment+income+veteran | disab_type_2,data = dataf,rowlabelhead = "Characteristics by disability type")
+         employment+income+veteran+zip_cd+state+lived_other | disab_type_2,data = dataf,rowlabelhead = "Characteristics by disability type")
 
 ```
 
-... Collapse
-
-Race and ethnicity into 1
+Remove those without checked condition
 ```{r}
-
-#Race and ethnicity into 1
-
-```
-
-Gender into 3
-```{r}
-
-#Gender into male, female, others
-
-```
-
-Education into some high-school, high-school, post-high-school, advanced deg
-```{r}
-
-#Education into Education into some high-school, high-school, post-high-school, advanced deg
+table1(~ ethnicity+race+gender+age+marit_stat+education+time_living_disability+regions+divisions+
+         connect_transpo+comfortable_av+price_range+hous_sit+
+         employment+income+veteran+zip_cd+state+lived_other | disab_type_2,data = dataf%>%filter(Diagnosis!="No checked condition"),rowlabelhead = "Characteristics by disability type")
 
 
 ```
-
 
 # Demographic characteristics in those with multiple conditions
 ```{r}
@@ -341,13 +332,51 @@ Education into some high-school, high-school, post-high-school, advanced deg
 #+occupation  
 table1(~ ethnicity+race+gender+age+marit_stat+education+time_living_disability+regions+divisions+
          connect_transpo+comfortable_av+price_range+hous_sit+
-         employment+income+veteran | Diagnosis,data = dataf%>%filter(Num_conditions>1),rowlabelhead = "Characteristics by disability type")
+         employment+income+veteran+zip_cd+state+lived_other
+         | Diagnosis,data = dataf%>%filter(Num_conditions>1),rowlabelhead = "Characteristics by disability type")
 
+dataf_statena<-dataf[which(is.na(dataf$state)),]
+
+table(dataf_statena$zip_cd)
 ```
+
+
+# Demographic characteristics in those with single conditions
 
 ```{r}
 
+table1(~ ethnicity+race+gender+age+marit_stat+education+time_living_disability+regions+divisions+
+         connect_transpo+comfortable_av+price_range+hous_sit+
+         employment+income+veteran+zip_cd+state+lived_other
+         | Diagnosis,data = dataf%>%filter(Num_conditions<2),rowlabelhead = "Characteristics by disability type")
 
+```
+... Collapse certain groups so that they can be tested reliably  
+
+Race and ethnicity into 1
+```{r}
+dataf<-dataf%>%
+  mutate(
+          'Age_Group'=case_when(
+           age <45~"Less than 45",
+           age %in% c(45:64)~"45 to 64",
+           age >64 ~"More than 65"),
+         
+         'Sex'=case_when(
+           gender=="Female"~"Female",
+           gender=="Male"~"Male",
+           gender %in% c("Non-binary/third gender","Prefer not to answer",
+                         "Transgender: Female to Male","Transgender: Male to Female","Non-binary/third gender") ~ "Others"),
+         
+         'Marital Status'=case_when(
+           marit_stat=="Single"~"Single",
+           marit_stat==2~"Married",
+           marit_stat==3~"Others")
+  )
+
+#Race and ethnicity into 1
+#Gender into male, female, others
+#Education into Education into some high-school, high-school, post-high-school, advanced deg
 
 ```
 
@@ -538,9 +567,11 @@ q2<-dataf%>%
   gather(TransportModes,
          TransportModesCheck,
          transpo_modes___1:transpo_modes___7,
-         factor_key = T)%>%
-  case_when()
-  
+         factor_key = T)#%>%
+#  case_when()
+
+q2$TransportModesFact<-q2$TransportModesCheck=="Checked"
+
 q2%>%
   filter(TransportModesCheck=="Checked")%>%
   group_by(TransportModes)%>%
@@ -552,6 +583,49 @@ q2%>%
   xlab("Autonomous Vehicles (AV) and Autonomous Transportation Systems (ATS)") + 
   ylab("Number of Participants")+
   scale_x_discrete(labels = x.labs)
+
+library("RVAideMemoire")
+
+q2%>%
+  group_by(disab_type,TransportModes)%>%
+  summarize(N=n(),
+            'n (%)'=paste0
+            (
+              sum(TransportModesCheck=="Checked"),
+              " ",
+              "(",
+              round(sum(TransportModesCheck=="Checked")/n()*100,2),
+              ")"
+              )
+            )%>%
+  kable()
+
+
+xtabs(~TransportModes,
+        data = q2%>%
+  filter(TransportModesFact==T))
+
+
+cochran.qtest(formula = TransportModesFact~TransportModes|id,data = q2,alpha = 0.05,p.method = "fdr")
+
+
+#transport_modes%>%
+#  mutate(x=rownames(transport_modes),
+#         percent=paste(round(percent,1),"%",sep = ""))%>%
+#  ggplot(aes(x=reorder(x,-n), y=n,label=percent))+
+#  geom_bar(stat="identity", color="black")+
+#  geom_text(nudge_y = -10)+
+#  xlab("Modes of transportation") + 
+#  ylab("Number of Participants") +  
+#  ggtitle(str_wrap("What are your current modes of transportation?",70))+
+#  scale_fill_manual(values = "#E63F00")+
+#  scale_x_discrete(labels = function(x) str_wrap(x, width = 18))+
+#  theme(
+#    plot.title = element_text(face="bold.italic"),
+#    axis.title.x = element_text(face="bold"),
+#    axis.title.y = element_text(face="bold"))
+
+
 
 ```
 
@@ -647,7 +721,7 @@ q11<-dataf%>%
 
 ```
 
-```{r}
+```{r eval=FALSE, include=FALSE}
 
 
 
