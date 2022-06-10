@@ -549,6 +549,7 @@ datatable(pers_av_value)
 ----------------------------------------------------------------------
 
 ## Survey response summary by disability types
+## Question 2
 ```{r}
 #Modify data into long format and display by disability types  
 
@@ -588,7 +589,7 @@ library("RVAideMemoire")
 
 q2%>%
   group_by(disab_type,TransportModes)%>%
-  summarize(N=n(),
+  summarize(N_disab=n(),
             'n (%)'=paste0
             (
               sum(TransportModesCheck=="Checked"),
@@ -598,7 +599,7 @@ q2%>%
               ")"
               )
             )%>%
-  kable()
+  datatable()
 
 
 xtabs(~TransportModes,
