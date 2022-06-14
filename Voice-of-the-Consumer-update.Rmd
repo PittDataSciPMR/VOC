@@ -813,6 +813,32 @@ q8<-dataf%>%
          Services_useCheck,
          services_use___1:services_use___6,
          factor_key = T)
+
+q8$Services_useFact<-q8$Services_useCheck=="Checked"
+
+q8%>%
+  group_by(disab_type,Services_use)%>%
+  summarize(N_disab=n(),
+            'n (%)'=paste0
+            (
+              sum(Services_useCheck=="Checked"),
+              " ",
+              "(",
+              round(sum(Services_useCheck=="Checked")/n()*100,2),
+              ")"
+              )
+            )%>%
+  datatable()
+
+
+xtabs(~Services_use,
+        data = q8%>%
+  filter(Services_useFact==T))
+
+#cochran q test for tmodes
+cochran.qtest(formula = Services_useFact~Services_use|id,data = q8,alpha = 0.05,p.method = "fdr")
+
+
 ```
 ## Question 9
 
@@ -824,6 +850,31 @@ q9<-dataf%>%
          fixed_routesCheck,
          fixed_rte_opt___1:fixed_rte_opt___5,
          factor_key = T)
+
+q9$fixed_routesFact<-q9$fixed_routesCheck=="Checked"
+
+q9%>%
+  group_by(disab_type,fixed_routes)%>%
+  summarize(N_disab=n(),
+            'n (%)'=paste0
+            (
+              sum(fixed_routesCheck=="Checked"),
+              " ",
+              "(",
+              round(sum(fixed_routesCheck=="Checked")/n()*100,2),
+              ")"
+              )
+            )%>%
+  datatable()
+
+xtabs(~fixed_routes,
+        data = q9%>%
+  filter(fixed_routesFact==T))
+
+#cochran q test for tmodes
+cochran.qtest(formula = fixed_routesFact~fixed_routes|id,data = q9,alpha = 0.05,p.method = "fdr")
+
+
 ```
 ## Question 10
 
@@ -831,28 +882,184 @@ q9<-dataf%>%
 
 #q10
 q10<-dataf%>%
-  gather(Custom_routes,
-         Custom_routesCheck,
-         custom_rtes___1:custom_rtes___5,
+  gather(access_features,
+         	access_featuresCheck,
+         	access_features___1:access_features___9,
          factor_key = T)
+
+q10$access_featuresFact<-q10$access_featuresCheck=="Checked"
+
+q10%>%
+  group_by(disab_type,access_features)%>%
+  summarize(N_disab=n(),
+            'n (%)'=paste0
+            (
+              sum(access_featuresCheck=="Checked"),
+              " ",
+              "(",
+              round(sum(access_featuresCheck=="Checked")/n()*100,2),
+              ")"
+              )
+            )%>%
+  datatable()
+
+xtabs(~access_features,
+        data = q10%>%
+  filter(access_featuresFact==T))
+
+#cochran q test for tmodes
+cochran.qtest(formula = access_featuresFact~access_features|id,data = q10,alpha = 0.05,p.method = "fdr")
+
+
 ```
+
 ## Question 11
 
 ```{r}
 
 #q11
 q11<-dataf%>%
-  gather(Custom_routes,
-         Custom_routesCheck,
-         custom_rtes___1:custom_rtes___5,
+  gather(other_forms_transpo,
+         other_forms_transpoCheck,
+         other_forms_transpo___1:other_forms_transpo___8,
          factor_key = T)
 
+q11$other_forms_transpoFact<-q11$other_forms_transpoCheck=="Checked"
+
+q11%>%
+  group_by(disab_type,other_forms_transpo)%>%
+  summarize(N_disab=n(),
+            'n (%)'=paste0
+            (
+              sum(other_forms_transpoCheck=="Checked"),
+              " ",
+              "(",
+              round(sum(other_forms_transpoCheck=="Checked")/n()*100,2),
+              ")"
+              )
+            )%>%
+  datatable()
+
+xtabs(~other_forms_transpo,
+        data = q11%>%
+  filter(other_forms_transpoFact==T))
+
+#cochran q test for tmodes
+cochran.qtest(formula = other_forms_transpoFact~other_forms_transpo|id,data = q11,alpha = 0.05,p.method = "fdr")
+
+
 ```
+
+
 ## Question 12
 
+```{r}
+#q12
+
+q12<-dataf%>%
+  gather(av_services_using,
+         av_services_usingCheck,
+         av_services_using___1:av_services_using___7,
+         factor_key = T)
+
+q12$av_services_usingFact<-q12$av_services_usingCheck=="Checked"
+
+q12%>%
+  group_by(disab_type,av_services_using)%>%
+  summarize(N_disab=n(),
+            'n (%)'=paste0
+            (
+              sum(av_services_usingCheck=="Checked"),
+              " ",
+              "(",
+              round(sum(av_services_usingCheck=="Checked")/n()*100,2),
+              ")"
+              )
+            )%>%
+  datatable()
+
+xtabs(~av_services_using,
+        data = q12%>%
+  filter(av_services_usingFact==T))
+
+#cochran q test for tmodes
+cochran.qtest(formula = av_services_usingFact~av_services_using|id,data = q12,alpha = 0.05,p.method = "fdr")
+
+
+```
+
+## Question 14
+
+```{r}
+
+#q14
+q14<-dataf%>%
+  gather(pers_vehicle_asst,
+         pers_vehicle_asstCheck,
+         pers_vehicle_asst_feat___1:pers_vehicle_asst_feat___13,
+         factor_key = T)
+
+q14$pers_vehicle_asstFact<-q14$pers_vehicle_asstCheck=="Checked"
+
+q14%>%
+  group_by(disab_type,pers_vehicle_asst)%>%
+  summarize(N_disab=n(),
+            'n (%)'=paste0
+            (
+              sum(pers_vehicle_asstCheck=="Checked"),
+              " ",
+              "(",
+              round(sum(pers_vehicle_asstCheck=="Checked")/n()*100,2),
+              ")"
+              )
+            )%>%
+  datatable()
+
+xtabs(~pers_vehicle_asst,
+        data = q14%>%
+  filter(pers_vehicle_asstFact==T))
+
+#cochran q test for tmodes
+cochran.qtest(formula = pers_vehicle_asstFact~pers_vehicle_asst|id,data = q14,alpha = 0.05,p.method = "fdr")
+
+
+```
+
+### Question 13
+```{r}
+#q13
+q13<-dataf%>%
+  gather(pers_av_value,
+         pers_av_valueCheck,
+         pers_av_value___1:pers_av_value___6,
+         factor_key = T)
+
+q13$pers_av_valueFact<-q13$pers_av_valueCheck=="Checked"
+
+q13%>%
+  group_by(disab_type,pers_av_value)%>%
+  summarize(N_disab=n(),
+            'n (%)'=paste0
+            (
+              sum(pers_av_valueCheck=="Checked"),
+              " ",
+              "(",
+              round(sum(pers_av_valueCheck=="Checked")/n()*100,2),
+              ")"
+              )
+            )%>%
+  datatable()
+
+xtabs(~pers_av_value,
+        data = q13%>%
+  filter(pers_av_valueFact==T))
+
+#cochran q test for tmodes
+cochran.qtest(formula = pers_av_valueFact~pers_av_value|id,data = q13,alpha = 0.05,p.method = "fdr")
+
+```
+
 ```{r eval=FALSE, include=FALSE}
-
-
 
 dataf%>%
   group_by(fwat_id,)%>%
