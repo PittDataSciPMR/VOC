@@ -407,19 +407,18 @@ for (i in 1:ncol(df)){
 
 
 ### What are the current transportation practices of individuals with disabilities?  
-#### Transport modes  
+#### What are your current modes of transportation?  
+
 ```{r}
 #transport modes
-transport_modes<-domulti_sum(dataf[,14:21])
-datatable(transport_modes)
+transport_modes<-domulti_sum(dataf[,14:20])
 rownames(transport_modes)<-c("Licensed Driver or Permit holder of a Personally Owned or Leased Vehicle",
                         "Passenger of a Personally Owned or Leased Vehicle",
                         "Ground Public Transportation (e.g., paratransit, fixed route bus, train, subway, etc.)",
                         "Ground Private Transportation (e.g., Uber, Lyft, Taxi)",
                         "Light rail or train air taxi (flying vehicles or drones)",
                         "Air travel (e.g., planes, helicopters)",
-                        "Water travel (e.g., boat, ferry, water taxi)",
-                        "Others")
+                        "Water travel (e.g., boat, ferry, water taxi)")
 datatable(transport_modes)
 transport_modes%>%
   mutate(x=rownames(transport_modes),
@@ -546,15 +545,24 @@ datatable(pers_av_value)
 
 ```
 
+```{r}
+
+library(tidyr)
+library("RVAideMemoire")
+
+
+```
 ----------------------------------------------------------------------
 
 ## Survey response summary by disability types
-## Question 2
 ```{r}
-#Modify data into long format and display by disability types  
+```
 
+### Question 2
+```{r}
+
+#Modify data into long format and display by disability types  
 dataf$id<-c(1:nrow(dataf))
-library(tidyr)
 
 x.labs<-c("Full-size buses",
   "Mini-buses or multi-passenger van ride-share",
@@ -573,19 +581,19 @@ q2<-dataf%>%
 
 q2$TransportModesFact<-q2$TransportModesCheck=="Checked"
 
-q2%>%
-  filter(TransportModesCheck=="Checked")%>%
-  group_by(TransportModes)%>%
-  mutate(percent=(n()/nrow(q2))*100)%>%
-  ggplot(aes(x=TransportModes,label=percent))+
-  geom_bar(stat = "count")+
+
+#q2%>%
+#  filter(TransportModesCheck=="Checked")%>%
+#  group_by(disab_type_2)%>%
+#  mutate(percent=(n()/nrow(q2))*100)%>%
+#  ggplot(aes(x=disab_type_2,label=percent))+
+#  geom_bar(stat = "identity")+
  # facet_wrap(~ disab_type)+
   #geom_text(nudge_y = -10)+
-  xlab("Autonomous Vehicles (AV) and Autonomous Transportation Systems (ATS)") + 
-  ylab("Number of Participants")+
-  scale_x_discrete(labels = x.labs)
+#  xlab("Autonomous Vehicles (AV) and Autonomous Transportation Systems (ATS)") + 
+#  ylab("Number of Participants")+
+#  scale_x_discrete(labels = x.labs)
 
-library("RVAideMemoire")
 
 q2%>%
   group_by(disab_type,TransportModes)%>%
@@ -606,8 +614,10 @@ xtabs(~TransportModes,
         data = q2%>%
   filter(TransportModesFact==T))
 
-
+#cochran q test for tmodes
 cochran.qtest(formula = TransportModesFact~TransportModes|id,data = q2,alpha = 0.05,p.method = "fdr")
+
+#cochran q test for disab types
 
 
 #transport_modes%>%
@@ -630,6 +640,7 @@ cochran.qtest(formula = TransportModesFact~TransportModes|id,data = q2,alpha = 0
 
 ```
 
+## Question 3
 ```{r}
 #3
 q3<-dataf%>%
@@ -638,7 +649,33 @@ q3<-dataf%>%
          av_systems___1:av_systems___6,
          factor_key = T)
 
+q3$AVsystemsFact<-q3$AVsystemsCheck=="Checked"
+
+
+q3%>%
+  group_by(disab_type,AVsystems)%>%
+  summarize(N_disab=n(),
+            'n (%)'=paste0
+            (
+              sum(AVsystemsCheck=="Checked"),
+              " ",
+              "(",
+              round(sum(AVsystemsCheck=="Checked")/n()*100,2),
+              ")"
+              )
+            )%>%
+  datatable()
+
+
+xtabs(~AVsystems,
+        data = q3%>%
+  filter(AVsystemsFact==T))
+
+#cochran q test for tmodes
+cochran.qtest(formula = AVsystemsFact~AVsystems|id,data = q3,alpha = 0.05,p.method = "fdr")
+
 ```
+## Question 4
 
 ```{r}
 
@@ -649,7 +686,34 @@ q4<-dataf%>%
          arrg_ride_tech___1:arrg_ride_tech___8,
          factor_key = T)
 
+q4$ArrangerideFact<-q4$ArrangerideCheck=="Checked"
+
+
+q4%>%
+  group_by(disab_type,TechArrangeride)%>%
+  summarize(N_disab=n(),
+            'n (%)'=paste0
+            (
+              sum(ArrangerideCheck=="Checked"),
+              " ",
+              "(",
+              round(sum(ArrangerideCheck=="Checked")/n()*100,2),
+              ")"
+              )
+            )%>%
+  datatable()
+
+
+xtabs(~TechArrangeride,
+        data = q4%>%
+  filter(ArrangerideFact==T))
+
+#cochran q test for tmodes
+cochran.qtest(formula = ArrangerideFact~TechArrangeride|id,data = q4,alpha = 0.05,p.method = "fdr")
+
+
 ```
+## Question 5
 
 ```{r}
 
@@ -659,7 +723,36 @@ q5<-dataf%>%
          MethodArrangerideCheck,
          meth_arrg_ride___1:meth_arrg_ride___7,
          factor_key = T)
+
+
+q5$MethodArrangerideFact<-q5$MethodArrangerideCheck=="Checked"
+
+
+q5%>%
+  group_by(disab_type,MethodArrangeride)%>%
+  summarize(N_disab=n(),
+            'n (%)'=paste0
+            (
+              sum(MethodArrangerideCheck=="Checked"),
+              " ",
+              "(",
+              round(sum(MethodArrangerideCheck=="Checked")/n()*100,2),
+              ")"
+              )
+            )%>%
+  datatable()
+
+
+xtabs(~MethodArrangeride,
+        data = q5%>%
+  filter(MethodArrangerideFact==T))
+
+#cochran q test for tmodes
+cochran.qtest(formula = MethodArrangerideFact~MethodArrangeride|id,data = q5,alpha = 0.05,p.method = "fdr")
+
+
 ```
+## Question 6
 
 ```{r}
 
@@ -670,6 +763,7 @@ q6<-dataf%>%
          meth_arrg_ride___1:meth_arrg_ride___7,
          factor_key = T)
 ```
+## Question 7
 
 ```{r}
 
@@ -679,7 +773,37 @@ q7<-dataf%>%
          Activities_accessCheck,
          activities_access___1:activities_access___7,
          factor_key = T)
+
+
+
+q7$Activities_accessFact<-q7$Activities_accessCheck=="Checked"
+
+
+q7%>%
+  group_by(disab_type,Activities_access)%>%
+  summarize(N_disab=n(),
+            'n (%)'=paste0
+            (
+              sum(Activities_accessCheck=="Checked"),
+              " ",
+              "(",
+              round(sum(Activities_accessCheck=="Checked")/n()*100,2),
+              ")"
+              )
+            )%>%
+  datatable()
+
+
+xtabs(~Activities_access,
+        data = q7%>%
+  filter(Activities_accessFact==T))
+
+#cochran q test for tmodes
+cochran.qtest(formula = Activities_accessFact~Activities_access|id,data = q7,alpha = 0.05,p.method = "fdr")
+
+
 ```
+## Question 8
 
 ```{r}
 
@@ -690,6 +814,7 @@ q8<-dataf%>%
          services_use___1:services_use___6,
          factor_key = T)
 ```
+## Question 9
 
 ```{r}
 
@@ -700,6 +825,7 @@ q9<-dataf%>%
          fixed_rte_opt___1:fixed_rte_opt___5,
          factor_key = T)
 ```
+## Question 10
 
 ```{r}
 
@@ -710,6 +836,7 @@ q10<-dataf%>%
          custom_rtes___1:custom_rtes___5,
          factor_key = T)
 ```
+## Question 11
 
 ```{r}
 
@@ -721,6 +848,7 @@ q11<-dataf%>%
          factor_key = T)
 
 ```
+## Question 12
 
 ```{r eval=FALSE, include=FALSE}
 
