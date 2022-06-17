@@ -307,7 +307,7 @@ write.csv(dizz_na,"Subject who Checked no condition.csv")
 #read.csv(dizz, "dizz.csv")
 ```
 
-Explore raw distribution of demographic characteristics
+# Raw table distribution of demographic characteristics
 ```{r}
 
 table1(~ ethnicity+race+gender+age+marit_stat+education+time_living_disability+regions+divisions+
@@ -325,7 +325,7 @@ table1(~ ethnicity+race+gender+age+marit_stat+education+time_living_disability+r
 
 ```
 
-# Demographic characteristics in those with multiple conditions
+# Summary of xtics in those with multiple conditions
 ```{r}
 
 #state+
@@ -341,7 +341,7 @@ table(dataf_statena$zip_cd)
 ```
 
 
-# Demographic characteristics in those with single conditions
+# Summary in those with single conditions
 
 ```{r}
 
@@ -398,6 +398,189 @@ for (i in 1:ncol(df)){
 #      mutate('n (%)'=paste(n,"(",percent,")"))
     return(big_data)
   }
+
+```
+
+# Counts of people in each category of disablity type
+```{r}
+
+
+```
+
+
+# Table 1. Demographic Characteristics (ignore multiple response)
+```{r}
+
+#Ambulatory
+
+
+
+#Ethnicity
+dataf%>%
+  filter(person_w_disabilty___4=="Checked")%>%
+  group_by(ethnicity)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)%>%
+
+  
+  #race      
+    bind_rows(
+dataf%>%
+  filter(person_w_disabilty___4=="Checked")%>%
+  group_by(race)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+    
+  )%>%
+
+
+#gender
+    bind_rows(
+dataf%>%
+  filter(person_w_disabilty___4=="Checked")%>%
+  group_by(gender)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+    
+  )%>%
+
+
+#Age
+
+    bind_rows(
+dataf%>%
+  filter(person_w_disabilty___4=="Checked")%>%
+  group_by(age)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+
+
+#Marital status
+    bind_rows(
+dataf%>%
+  filter(person_w_disabilty___4=="Checked")%>%
+  group_by(marit_stat)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+
+#education
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___4=="Checked")%>%
+  group_by(education)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+#time_living_disability
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___4=="Checked")%>%
+  group_by(time_living_disability)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+#regions
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___4=="Checked")%>%
+  group_by(regions)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #divisions
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___4=="Checked")%>%
+  group_by(divisions)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #connect_transpo
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___4=="Checked")%>%
+  group_by(connect_transpo)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #comfortable_av
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___4=="Checked")%>%
+  group_by(comfortable_av)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #price_range
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___4=="Checked")%>%
+  group_by(price_range)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #hous_sit
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___4=="Checked")%>%
+  group_by(hous_sit)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #employment
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___4=="Checked")%>%
+  group_by(employment)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #income
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___4=="Checked")%>%
+  group_by(income)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+#veteran
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___4=="Checked")%>%
+  group_by(veteran)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+#lived_other
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___4=="Checked")%>%
+  group_by(lived_other)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  datatable()
+
+
 
 ```
 
@@ -556,6 +739,8 @@ library("RVAideMemoire")
 
 ## Survey response summary by disability types
 ```{r}
+
+#r
 ```
 
 ### Question 2
@@ -596,8 +781,9 @@ q2$TransportModesFact<-q2$TransportModesCheck=="Checked"
 
 
 q2%>%
-  group_by(disab_type,TransportModes)%>%
-  summarize(N_disab=n(),
+  group_by(disab_type_2,TransportModes)%>%
+  summarize(N_disab=n(), #all the people that responded to the question, i.e. said Yes or No
+            n=round(sum(TransportModesCheck=="Checked"),2), #all the people that said Yes
             'n (%)'=paste0
             (
               sum(TransportModesCheck=="Checked"),
@@ -609,7 +795,20 @@ q2%>%
             )%>%
   datatable()
 
+ q2%>%
+    group_by(disab_type_2,TransportModes,TransportModesCheck)%>%
+    mutate(N_disab=n())%>%
+   distinct(disab_type_2,TransportModes,TransportModesCheck,.keep_all = T)%>%
+   filter(TransportModesCheck=="Checked")%>%
+   ggplot(aes(x=reorder(disab_type_2,desc(N_disab)),y=N_disab))+
+   geom_col(aes(fill=TransportModes),width = 1,color="black")
+ 
 
+```
+
+
+```{r}
+ 
 xtabs(~TransportModes,
         data = q2%>%
   filter(TransportModesFact==T))
