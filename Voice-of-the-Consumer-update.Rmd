@@ -408,12 +408,11 @@ for (i in 1:ncol(df)){
 ```
 
 
-# Table 1. Demographic Characteristics (ignore multiple response)
-```{r}
+# Table 1. Demographic Characteristics (double counting)
+## Ambulatory difficulty
+```{r include=FALSE}
 
 #Ambulatory
-
-
 
 #Ethnicity
 dataf%>%
@@ -583,6 +582,887 @@ dataf%>%
 
 
 ```
+
+## Cognitive difficulty
+```{r include=FALSE}
+
+#Ambulatory
+
+
+
+#Ethnicity
+dataf%>%
+  filter(person_w_disabilty___3=="Checked")%>%
+  group_by(ethnicity)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)%>%
+
+  
+  #race      
+    bind_rows(
+dataf%>%
+  filter(person_w_disabilty___3=="Checked")%>%
+  group_by(race)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+    
+  )%>%
+
+
+#gender
+    bind_rows(
+dataf%>%
+  filter(person_w_disabilty___3=="Checked")%>%
+  group_by(gender)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+    
+  )%>%
+
+
+#Age
+
+    bind_rows(
+dataf%>%
+  filter(person_w_disabilty___3=="Checked")%>%
+  group_by(age)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+
+
+#Marital status
+    bind_rows(
+dataf%>%
+  filter(person_w_disabilty___3=="Checked")%>%
+  group_by(marit_stat)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+
+#education
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___3=="Checked")%>%
+  group_by(education)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+#time_living_disability
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___3=="Checked")%>%
+  group_by(time_living_disability)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+#regions
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___3=="Checked")%>%
+  group_by(regions)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #divisions
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___3=="Checked")%>%
+  group_by(divisions)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #connect_transpo
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___3=="Checked")%>%
+  group_by(connect_transpo)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #comfortable_av
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___3=="Checked")%>%
+  group_by(comfortable_av)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #price_range
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___3=="Checked")%>%
+  group_by(price_range)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #hous_sit
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___3=="Checked")%>%
+  group_by(hous_sit)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #employment
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___3=="Checked")%>%
+  group_by(employment)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #income
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___3=="Checked")%>%
+  group_by(income)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+#veteran
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___3=="Checked")%>%
+  group_by(veteran)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+#lived_other
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___3=="Checked")%>%
+  group_by(lived_other)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  datatable()
+
+
+
+```
+
+## Hearing difficulty
+```{r include=FALSE}
+
+#Ambulatory
+
+
+
+#Ethnicity
+dataf%>%
+  filter(person_w_disabilty___1=="Checked")%>%
+  group_by(ethnicity)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)%>%
+
+  
+  #race      
+    bind_rows(
+dataf%>%
+  filter(person_w_disabilty___1=="Checked")%>%
+  group_by(race)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+    
+  )%>%
+
+
+#gender
+    bind_rows(
+dataf%>%
+  filter(person_w_disabilty___1=="Checked")%>%
+  group_by(gender)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+    
+  )%>%
+
+
+#Age
+
+    bind_rows(
+dataf%>%
+  filter(person_w_disabilty___1=="Checked")%>%
+  group_by(age)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+
+
+#Marital status
+    bind_rows(
+dataf%>%
+  filter(person_w_disabilty___1=="Checked")%>%
+  group_by(marit_stat)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+
+#education
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___1=="Checked")%>%
+  group_by(education)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+#time_living_disability
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___1=="Checked")%>%
+  group_by(time_living_disability)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+#regions
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___1=="Checked")%>%
+  group_by(regions)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #divisions
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___1=="Checked")%>%
+  group_by(divisions)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #connect_transpo
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___1=="Checked")%>%
+  group_by(connect_transpo)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #comfortable_av
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___1=="Checked")%>%
+  group_by(comfortable_av)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #price_range
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___1=="Checked")%>%
+  group_by(price_range)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #hous_sit
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___1=="Checked")%>%
+  group_by(hous_sit)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #employment
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___1=="Checked")%>%
+  group_by(employment)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #income
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___1=="Checked")%>%
+  group_by(income)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+#veteran
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___1=="Checked")%>%
+  group_by(veteran)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+#lived_other
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___1=="Checked")%>%
+  group_by(lived_other)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  datatable()
+
+
+
+```
+
+## Independent living difficulty
+```{r include=FALSE}
+
+#Ambulatory
+
+
+
+#Ethnicity
+dataf%>%
+  filter(person_w_disabilty___6=="Checked")%>%
+  group_by(ethnicity)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)%>%
+
+  
+  #race      
+    bind_rows(
+dataf%>%
+  filter(person_w_disabilty___6=="Checked")%>%
+  group_by(race)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+    
+  )%>%
+
+
+#gender
+    bind_rows(
+dataf%>%
+  filter(person_w_disabilty___6=="Checked")%>%
+  group_by(gender)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+    
+  )%>%
+
+
+#Age
+
+    bind_rows(
+dataf%>%
+  filter(person_w_disabilty___6=="Checked")%>%
+  group_by(age)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+
+
+#Marital status
+    bind_rows(
+dataf%>%
+  filter(person_w_disabilty___6=="Checked")%>%
+  group_by(marit_stat)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+
+#education
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___6=="Checked")%>%
+  group_by(education)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+#time_living_disability
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___6=="Checked")%>%
+  group_by(time_living_disability)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+#regions
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___6=="Checked")%>%
+  group_by(regions)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #divisions
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___6=="Checked")%>%
+  group_by(divisions)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #connect_transpo
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___6=="Checked")%>%
+  group_by(connect_transpo)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #comfortable_av
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___6=="Checked")%>%
+  group_by(comfortable_av)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #price_range
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___6=="Checked")%>%
+  group_by(price_range)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #hous_sit
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___6=="Checked")%>%
+  group_by(hous_sit)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #employment
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___6=="Checked")%>%
+  group_by(employment)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #income
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___6=="Checked")%>%
+  group_by(income)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+#veteran
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___6=="Checked")%>%
+  group_by(veteran)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+#lived_other
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___6=="Checked")%>%
+  group_by(lived_other)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  datatable()
+
+
+
+```
+
+## Self-care difficulty
+```{r include=FALSE}
+
+#Ambulatory
+
+
+
+#Ethnicity
+dataf%>%
+  filter(person_w_disabilty___5=="Checked")%>%
+  group_by(ethnicity)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)%>%
+
+  
+  #race      
+    bind_rows(
+dataf%>%
+  filter(person_w_disabilty___5=="Checked")%>%
+  group_by(race)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+    
+  )%>%
+
+
+#gender
+    bind_rows(
+dataf%>%
+  filter(person_w_disabilty___5=="Checked")%>%
+  group_by(gender)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+    
+  )%>%
+
+
+#Age
+
+    bind_rows(
+dataf%>%
+  filter(person_w_disabilty___5=="Checked")%>%
+  group_by(age)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+
+
+#Marital status
+    bind_rows(
+dataf%>%
+  filter(person_w_disabilty___5=="Checked")%>%
+  group_by(marit_stat)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+
+#education
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___5=="Checked")%>%
+  group_by(education)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+#time_living_disability
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___5=="Checked")%>%
+  group_by(time_living_disability)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+#regions
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___5=="Checked")%>%
+  group_by(regions)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #divisions
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___5=="Checked")%>%
+  group_by(divisions)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #connect_transpo
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___5=="Checked")%>%
+  group_by(connect_transpo)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #comfortable_av
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___5=="Checked")%>%
+  group_by(comfortable_av)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #price_range
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___5=="Checked")%>%
+  group_by(price_range)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #hous_sit
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___5=="Checked")%>%
+  group_by(hous_sit)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #employment
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___5=="Checked")%>%
+  group_by(employment)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #income
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___5=="Checked")%>%
+  group_by(income)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+#veteran
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___5=="Checked")%>%
+  group_by(veteran)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+#lived_other
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___5=="Checked")%>%
+  group_by(lived_other)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  datatable()
+
+
+
+```
+
+## Vision difficulty
+```{r include=FALSE}
+
+#Ambulatory
+
+
+
+#Ethnicity
+dataf%>%
+  filter(person_w_disabilty___2=="Checked")%>%
+  group_by(ethnicity)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)%>%
+
+  
+  #race      
+    bind_rows(
+dataf%>%
+  filter(person_w_disabilty___2=="Checked")%>%
+  group_by(race)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+    
+  )%>%
+
+
+#gender
+    bind_rows(
+dataf%>%
+  filter(person_w_disabilty___2=="Checked")%>%
+  group_by(gender)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+    
+  )%>%
+
+
+#Age
+
+    bind_rows(
+dataf%>%
+  filter(person_w_disabilty___2=="Checked")%>%
+  group_by(age)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+
+
+#Marital status
+    bind_rows(
+dataf%>%
+  filter(person_w_disabilty___2=="Checked")%>%
+  group_by(marit_stat)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+
+#education
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___2=="Checked")%>%
+  group_by(education)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+#time_living_disability
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___2=="Checked")%>%
+  group_by(time_living_disability)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+#regions
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___2=="Checked")%>%
+  group_by(regions)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #divisions
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___2=="Checked")%>%
+  group_by(divisions)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #connect_transpo
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___2=="Checked")%>%
+  group_by(connect_transpo)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #comfortable_av
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___2=="Checked")%>%
+  group_by(comfortable_av)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #price_range
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___2=="Checked")%>%
+  group_by(price_range)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #hous_sit
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___2=="Checked")%>%
+  group_by(hous_sit)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #employment
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___2=="Checked")%>%
+  group_by(employment)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  #income
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___2=="Checked")%>%
+  group_by(income)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+#veteran
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___2=="Checked")%>%
+  group_by(veteran)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+#lived_other
+      bind_rows(
+dataf%>%
+  filter(person_w_disabilty___2=="Checked")%>%
+  group_by(lived_other)%>%
+  summarise(n=n()) %>%
+  mutate('N (%)'=paste0(n," ","(",round(((n/sum(n))*100),2),")"))%>%
+  select(-n)
+)%>%
+  datatable()
+
+
+
+```
+
 
 # Survey response summary  
 
