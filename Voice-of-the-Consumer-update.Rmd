@@ -2262,8 +2262,6 @@ Suggested solution: Ability to select more than one role.
 
 # Next Steps in consideration  
 
-1. Chi-sq/Fischer exact for demographic characteristics
-2. Cochran Q test for multiple response questions. 
 3. Hierarchical Clustering to identify characteristics associated with certain responses 
 4. Multinomial logistics regression to test the effects of the identified characteristics dimension reduction
 
@@ -2282,7 +2280,6 @@ B. Neural network node with RBF to identify dimensionality of the variables.
 C. XGBoost 
 
 5. Perform Akaike Information Criteria (AIC) for each model  
-
 
 6. Cluster analysis using KMC
 
