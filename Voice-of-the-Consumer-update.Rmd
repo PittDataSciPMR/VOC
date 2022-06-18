@@ -266,7 +266,7 @@ dataf<-dataf%>%
 
 ```
 
-## Persons with disability  
+Persons with disability only   
 
 ```{r}
 
@@ -283,7 +283,7 @@ nrow(dizz_na) #there are 145 people with no diagnosis checked
 dizz_notna<-dizz%>%
   filter(Diagnosis!="No checked condition")
 
-#Distribution of those who didnt select a DISABILITY TYPER
+#Distribution of those who didnt select a DISABILITY TYPE
 dizz_na%>%
   group_by(dpct)%>%
   summarize(n=n())%>%
@@ -325,7 +325,20 @@ table1(~ ethnicity+race+gender+age+marit_stat+education+time_living_disability+r
 
 ```
 
-# Summary of xtics in those with multiple conditions
+
+# Table S1. Descriptive (Excluding participants with multiple disability types)
+
+```{r}
+
+table1(~ ethnicity+race+gender+age+marit_stat+education+time_living_disability+regions+divisions+
+         connect_transpo+comfortable_av+price_range+hous_sit+
+         employment+income+veteran+zip_cd+state+lived_other
+         | Diagnosis,data = dataf%>%filter(Num_conditions<2),rowlabelhead = "Characteristics by disability type")
+
+```
+
+
+# Table S2. Descriptive (expounding on those with multiple disability types)
 ```{r}
 
 #state+
@@ -339,19 +352,6 @@ dataf_statena<-dataf[which(is.na(dataf$state)),]
 
 table(dataf_statena$zip_cd)
 ```
-
-
-# Summary in those with single conditions
-
-```{r}
-
-table1(~ ethnicity+race+gender+age+marit_stat+education+time_living_disability+regions+divisions+
-         connect_transpo+comfortable_av+price_range+hous_sit+
-         employment+income+veteran+zip_cd+state+lived_other
-         | Diagnosis,data = dataf%>%filter(Num_conditions<2),rowlabelhead = "Characteristics by disability type")
-
-```
-... Collapse certain groups so that they can be tested reliably  
 
 Race and ethnicity into 1
 ```{r}
@@ -401,14 +401,31 @@ for (i in 1:ncol(df)){
 
 ```
 
-# Counts of people in each category of disablity type
+
+# Table 1. Demographic Characteristics (double counting)
+## Distribution of respondents in each category (double counting)    
+
 ```{r}
 
+d<-c()
+p<-c()
+  for (j in 5:10){
+    d[length(d)+1]<-colnames(dataf)[j]
+    p[length(p)+1]<-length(which(dataf[,j]=="Checked"))
+  }
+
+
+datatable(data.frame(unlist(d),unlist(p),
+                     row.names = c("Hearing difficulty",
+                                   "Vision difficulty",
+                                   "Cognitive difficulty",
+                                   "Ambulatory difficulty",
+                                   "Self-care difficulty",
+                                   "Independent living difficulty")))
 
 ```
 
 
-# Table 1. Demographic Characteristics (double counting)
 ## Ambulatory difficulty
 ```{r include=FALSE}
 
