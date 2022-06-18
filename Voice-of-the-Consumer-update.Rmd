@@ -1480,6 +1480,46 @@ dataf%>%
 
 ```
 
+# Table 2. Assistive devices by disability types (double counting)
+```{r}
+dataf%>%
+  filter(person_w_disabilty___1=="Checked")%>%
+  group_by(transpo_modes___1)%>%
+  summarise(n=n())
+
+dataf%>%
+  filter(person_w_disabilty___2=="Checked")%>%
+  group_by(transpo_modes___2)%>%
+  summarise(n=n())
+
+dataf%>%
+  filter(person_w_disabilty___1=="Checked")%>%
+  group_by(transpo_modes___3)%>%
+  summarise(n=n())
+
+dataf%>%
+  filter(person_w_disabilty___1=="Checked")%>%
+  group_by(transpo_modes___4)%>%
+  summarise(n=n())
+
+dataf%>%
+  filter(person_w_disabilty___1=="Checked")%>%
+  group_by(transpo_modes___5)%>%
+  summarise(n=n())
+
+dataf%>%
+  filter(person_w_disabilty___1=="Checked")%>%
+  group_by(transpo_modes___6)%>%
+  summarise(n=n())
+
+dataf%>%
+  filter(person_w_disabilty___1=="Checked")%>%
+  group_by(transpo_modes___7)%>%
+  summarise(n=n())
+
+```
+
+
 
 # Survey response summary  
 
