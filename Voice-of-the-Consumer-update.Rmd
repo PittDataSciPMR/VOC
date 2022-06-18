@@ -427,7 +427,7 @@ datatable(data.frame(unlist(d),unlist(p),
 
 
 ## Ambulatory difficulty
-```{r include=FALSE}
+```{r echo=FALSE}
 
 #Ambulatory
 
@@ -601,7 +601,7 @@ dataf%>%
 ```
 
 ## Cognitive difficulty
-```{r include=FALSE}
+```{r echo=FALSE}
 
 #Ambulatory
 
@@ -777,7 +777,7 @@ dataf%>%
 ```
 
 ## Hearing difficulty
-```{r include=FALSE}
+```{r echo=FALSE}
 
 #Ambulatory
 
@@ -953,7 +953,7 @@ dataf%>%
 ```
 
 ## Independent living difficulty
-```{r include=FALSE}
+```{r echo=FALSE}
 
 #Ambulatory
 
@@ -1129,7 +1129,7 @@ dataf%>%
 ```
 
 ## Self-care difficulty
-```{r include=FALSE}
+```{r echo=FALSE}
 
 #Ambulatory
 
@@ -1305,7 +1305,7 @@ dataf%>%
 ```
 
 ## Vision difficulty
-```{r include=FALSE}
+```{r echo=FALSE}
 
 #Ambulatory
 
